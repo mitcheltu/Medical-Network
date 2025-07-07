@@ -1,0 +1,30 @@
+# backend
+backend/node_modules/
+backend/.env
+backend/logs/
+backend/*.log
+
+#frontend
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+my-social-network/node_modules
+my-social-network/.pnp
+my-social-network/.pnp.js
+
+# testing
+my-social-network/coverage
+
+# production
+my-social-network/build
+
+# misc
+my-social-network/.DS_Store
+my-social-network/.env.local
+my-social-network/.env.development.local
+my-social-network/.env.test.local
+my-social-network/.env.production.local
+
+my-social-network/npm-debug.log*
+my-social-network/yarn-debug.log*
+my-social-network/yarn-error.log*
