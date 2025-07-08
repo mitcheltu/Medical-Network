@@ -62,7 +62,6 @@ app.post('/api/add-person', async (req, res) => {
 
 app.post('/api/del-person', async (req, res) => {
     const {person_id} = req.body;
-    console.log(person_id);
     const session = driver.session();
 
     if (!person_id) {
@@ -70,10 +69,13 @@ app.post('/api/del-person', async (req, res) => {
 }
     try {
         const result = await session.run(
-          'MATCH (p:Person {id: $person_id}) WITH p, p AS deleted DETACH DELETE p RETURN deleted',
+          `MATCH (p:Person {id: $person_id}) 
+          WITH p,  properties(p) AS deleted_props 
+          DETACH DELETE p 
+          RETURN deleted_props`,
           { person_id: neo4j.int(person_id) }
         );
-        const deletedNode = result.records[0].get('deleted').properties;
+        const deletedNode = result.records[0].get('deleted_props');
         res.json({ success: true, person: deletedNode });
       } catch (err) {
         console.error('Error:', err);
