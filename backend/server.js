@@ -41,14 +41,16 @@ app.get('/api/nodes', async (req, res) => {
 });
 
 app.post('/api/add-person', async (req, res) => {
-    const { name } = req.body;
+    console.log(req.body)
+    const name = req.body.name;
+    const birthdate = req.body.birthdate;
     const session = driver.session();
     const newId = Date.now();
 
     try {
       const result = await session.run(
-        'CREATE (p:Person {id: $person_id, name: $name}) RETURN p',
-        { person_id: newId, name: name }
+        'CREATE (p:Person {id: $person_id, name: $name, birthdate: $birthdate}) RETURN p',
+        { person_id: newId, name: name, birthdate: birthdate }
       );
       const createdNode = result.records[0].get('p').properties;
       res.json({ success: true, person: createdNode });
